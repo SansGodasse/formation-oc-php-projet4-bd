@@ -1,4 +1,156 @@
 -- Jeu de données exemple
 
-INSERT INTO ef_client(cl_name, cl_first_name, cl_phone_number, cl_email)
-VALUES ('Bards', 'Lenny', 0668917326, 'lenny.bards@gmail.com');
+-- On vide les tables
+DELETE FROM ef_plate;
+DELETE FROM ef_daily_list;
+DELETE FROM ef_contact;
+DELETE FROM ef_employee;
+DELETE FROM ef_cook;
+DELETE FROM ef_delivery_guy;
+DELETE FROM ef_client;
+DELETE FROM ef_order;
+DELETE FROM ef_order_content;
+DELETE FROM ef_daily_list_content;
+
+-- On insère les données
+INSERT INTO ef_plate(pl_name, pl_type)
+VALUES ('Tartiflette', 'plat'),
+	('Poëlée montagnarde', 'plat'),
+	('Burger vosgien', 'plat'),
+	('Salade vosgienne', 'plat'),
+	('Aligot', 'plat'),
+	('Carottes rapées', 'plat'),
+	('Betteraves rouges', 'plat'),
+	('Gratin dauphinois', 'plat'),
+	('Gratin de choux-fleurs', 'plat'),
+	('Gratin de brocolis', 'plat'),
+	('Salade niçoise', 'plat'),
+	('Coquilles saint Jacques', 'plat'),
+	('Nems au poulet', 'plat'),
+	('Pizza 4 fromages', 'plat'),
+	('Riz cantonnais', 'plat'),
+	('Omelette aux olives', 'plat'),
+	('Quiche lorraine', 'plat'),
+	('Pot au feu', 'plat'),
+	('Pizza reine', 'plat'),
+	('Risotto aux olives', 'plat'),
+	('Croques monsieur', 'plat'),
+	('Soupe aux légumes', 'plat'),
+	('Tomates farcies', 'plat'),
+	('Poivrons farcis', 'plat'),
+	('Aubergines farcies', 'plat'),
+
+
+	('Crumble aux pommes', 'dessert'),
+	('Clafoutis aux pommes', 'dessert'),
+	('Tarte aux pommes', 'dessert'),
+	('Compote de pommes', 'dessert'),
+	('Crumble aux poires', 'dessert'),
+	('Clafoutis aux poires', 'dessert'),
+	('Tarte aux poires', 'dessert'),
+	('Compote de poires', 'dessert'),
+	('Crumble aux prunes', 'dessert'),
+	('Clafoutis aux prunes', 'dessert'),
+	('Tarte aux prunes', 'dessert'),
+	('Compote de prunes', 'dessert'),
+	('Crumble aux cerises', 'dessert'),
+	('Clafoutis aux cerises', 'dessert'),
+	('Tarte aux cerises', 'dessert'),
+	('Compote de cerises', 'dessert'),
+	('Mousse au chocolat', 'dessert'),
+	('Brownie au chocolat', 'dessert'),
+	('Charlotte aux framboises', 'dessert'),
+	('Paris Brest', 'dessert'),
+	('Crèpes au nutella', 'dessert');
+
+INSERT INTO ef_daily_list(dl_date)
+VALUES ('2018-05-15'),
+	('2018-05-16'),
+	('2018-05-17'),
+	('2018-05-18'),
+	('2018-05-19'),
+	('2018-05-20'),
+	('2018-05-21'),
+	('2018-05-22'),
+	('2018-05-23'),
+	('2018-05-24'),
+	('2018-05-25'),
+	('2018-05-26'),
+	('2018-05-27'),
+	('2018-05-28'),
+	('2018-05-29'),
+	('2018-05-30'),
+	('2018-05-31');
+
+INSERT INTO ef_daily_list_content(dlc_list_date, dlc_plate_name)
+VALUES ('2018-05-15', 'Tartiflette'),
+	('2018-05-15', 'Pot au feu'),
+	('2018-05-15', 'Crèpes au nutella'),
+	('2018-05-15', 'Brownie au chocolat'),
+	('2018-05-16', 'Poëlée montagnarde'),
+	('2018-05-16', 'Aubergines farcies'),
+	('2018-05-16', 'Mousse au chocolat'),
+	('2018-05-16', 'Compote de cerises'),
+	('2018-05-17', 'Burger vosgien'),
+	('2018-05-17', 'Poivrons farcis'),
+	('2018-05-17', 'Clafoutis aux cerises'),
+	('2018-05-17', 'Tarte aux cerises'),
+	('2018-05-18', 'Salade vosgienne'),
+	('2018-05-18', 'Tomates farcies'),
+	('2018-05-18', 'Clafoutis aux cerises'),
+	('2018-05-18', 'Crumble aux pommes'),
+	('2018-05-19', 'Aligot'),
+	('2018-05-19', 'Soupe aux légumes'),
+	('2018-05-19', 'Crumble aux cerises'),
+	('2018-05-19', 'Clafoutis aux pommes'),
+	('2018-05-20', 'Carottes rapées'),
+	('2018-05-20', 'Croques monsieur'),
+	('2018-05-20', 'Compote de prunes'),
+	('2018-05-20', 'Tarte aux pommes'),
+	('2018-05-21', 'Betteraves rouges'),
+	('2018-05-21', 'Risotto aux olives'),
+	('2018-05-21', 'Tarte aux prunes'),
+	('2018-05-21', 'Compote de pommes'),
+	('2018-05-22', 'Gratin dauphinois'),
+	('2018-05-22', 'Pizza reine'),
+	('2018-05-22', 'Clafoutis aux prunes'),
+	('2018-05-22', 'Crumble aux poires'),
+	('2018-05-23', 'Gratin de choux-fleurs'),
+	('2018-05-23', 'Pot au feu'),
+	('2018-05-23', 'Crumble aux prunes'),
+	('2018-05-23', 'Clafoutis aux prunes'),
+	('2018-05-24', 'Gratin de brocolis'),
+	('2018-05-24', 'Quiche lorraine'),
+	('2018-05-24', 'Clafoutis aux prunes'),
+	('2018-05-24', 'Mousse au chocolat'),
+	('2018-05-25', 'Salade niçoise'),
+	('2018-05-25', 'Omelette aux olives'),
+	('2018-05-25', 'Compote de poires'),
+	('2018-05-25', 'Crumble aux poires'),
+	('2018-05-26', 'Coquilles saint Jacques'),
+	('2018-05-26', 'Riz cantonnais'),
+	('2018-05-26', 'Tarte aux poires'),
+	('2018-05-26', 'Paris Brest'),
+	('2018-05-27', 'Nems au poulet'),
+	('2018-05-27', 'Pizza 4 fromages'),
+	('2018-05-27', 'Clafoutis aux poires'),
+	('2018-05-27', 'Charlotte aux framboises'),
+	('2018-05-28', 'Poëlée montagnarde'),
+	('2018-05-28', 'Quiche lorraine'),
+	('2018-05-28', 'Crumble aux poires'),
+	('2018-05-28', 'Tarte aux cerises'),
+	('2018-05-29', 'Salade niçoise'),
+	('2018-05-29', 'Salade vosgienne'),
+	('2018-05-29', 'Compote de pommes'),
+	('2018-05-29', 'Crèpes au nutella'),
+	('2018-05-30', 'Omelette aux olives'),
+	('2018-05-30', 'Burger vosgien'),
+	('2018-05-30', 'Tarte aux pommes'),
+	('2018-05-30', 'Brownie au chocolat'),
+	('2018-05-31', 'Quiche lorraine'),
+	('2018-05-31', 'Gratin de choux-fleurs'),
+	('2018-05-31', 'Clafoutis aux pommes'),
+	('2018-05-31', 'Compote de cerises');
+
+INSERT INTO ef_client(cl_name, cl_first_name, cl_email, cl_contact)
+VALUES ('Bards', 'Lenny', 'lenny.bards@gmail.com');

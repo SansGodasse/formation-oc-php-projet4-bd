@@ -19,14 +19,15 @@ CREATE TABLE ef_daily_list(
 )
 ENGINE=InnoDB;
 
-CREATE TABLE ef_address(
-	ad_id INT UNSIGNED AUTO_INCREMENT,
-	ad_number VARCHAR(10),
-	ad_street VARCHAR(100),
-	ad_city VARCHAR(100),
-	ad_zip_code NUMERIC(5),
-	ad_complement VARCHAR(100),
-	PRIMARY KEY (ad_id)
+CREATE TABLE ef_contact(
+	con_id INT UNSIGNED AUTO_INCREMENT,
+	con_number VARCHAR(10),
+	con_street VARCHAR(100),
+	con_city VARCHAR(100),
+	con_zip_code NUMERIC(5),
+	con_complement VARCHAR(100),
+	con_phone_number VARCHAR(20),
+	PRIMARY KEY (con_id)
 )
 ENGINE=InnoDB;
 
@@ -34,11 +35,11 @@ CREATE TABLE ef_employee(
 	em_id INT UNSIGNED AUTO_INCREMENT,
 	em_name VARCHAR(100) NOT NULL,
 	em_first_name VARCHAR(100) NOT NULL,
-	em_address_id INT UNSIGNED,
+	em_contact_id INT UNSIGNED,
 	PRIMARY KEY (em_id),
-	CONSTRAINT fk_em_address_id_ad_id
-		FOREIGN KEY (em_address_id)
-			REFERENCES ef_address(ad_id)
+	CONSTRAINT fk_em_contact_id_con_id
+		FOREIGN KEY (em_contact_id)
+			REFERENCES ef_contact(con_id)
 			ON DELETE SET NULL
 			ON UPDATE CASCADE
 )
@@ -73,13 +74,12 @@ CREATE TABLE ef_client(
 	cl_id INT UNSIGNED AUTO_INCREMENT,
 	cl_name VARCHAR(100) NOT NULL,
 	cl_first_name VARCHAR(100) NOT NULL,
-	cl_phone_number VARCHAR(20) NOT NULL,
 	cl_email VARCHAR(100) NOT NULL,
-	cl_address_id INT UNSIGNED,
+	cl_contact_id INT UNSIGNED,
 	PRIMARY KEY (cl_id),
-	CONSTRAINT fk_cl_address_id_ad_id
-		FOREIGN KEY (cl_address_id)
-			REFERENCES ef_address(ad_id)
+	CONSTRAINT fk_cl_contact_id_con_id
+		FOREIGN KEY (cl_contact_id)
+			REFERENCES ef_contact(con_id)
 			ON DELETE SET NULL
 			ON UPDATE CASCADE
 )
