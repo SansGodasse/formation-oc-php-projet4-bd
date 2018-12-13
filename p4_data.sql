@@ -13,8 +13,12 @@ DELETE FROM ef_order_content;
 DELETE FROM ef_daily_list_content;
 
 -- On insère les données
+
+-- Plats
 INSERT INTO ef_plate(pl_name, pl_type)
-VALUES ('Tartiflette', 'plat'),
+VALUES
+-- Plats
+	('Tartiflette', 'plat'),
 	('Poëlée montagnarde', 'plat'),
 	('Burger vosgien', 'plat'),
 	('Salade vosgienne', 'plat'),
@@ -39,8 +43,7 @@ VALUES ('Tartiflette', 'plat'),
 	('Tomates farcies', 'plat'),
 	('Poivrons farcis', 'plat'),
 	('Aubergines farcies', 'plat'),
-
-
+-- Desserts
 	('Crumble aux pommes', 'dessert'),
 	('Clafoutis aux pommes', 'dessert'),
 	('Tarte aux pommes', 'dessert'),
@@ -63,8 +66,10 @@ VALUES ('Tartiflette', 'plat'),
 	('Paris Brest', 'dessert'),
 	('Crèpes au nutella', 'dessert');
 
+-- Listes journalières
 INSERT INTO ef_daily_list(dl_date)
-VALUES ('2018-05-15'),
+VALUES
+	('2018-05-15'),
 	('2018-05-16'),
 	('2018-05-17'),
 	('2018-05-18'),
@@ -82,8 +87,10 @@ VALUES ('2018-05-15'),
 	('2018-05-30'),
 	('2018-05-31');
 
+-- Contenu des listes journalières
 INSERT INTO ef_daily_list_content(dlc_list_date, dlc_plate_name)
-VALUES ('2018-05-15', 'Tartiflette'),
+VALUES
+	('2018-05-15', 'Tartiflette'),
 	('2018-05-15', 'Pot au feu'),
 	('2018-05-15', 'Crèpes au nutella'),
 	('2018-05-15', 'Brownie au chocolat'),
@@ -152,5 +159,38 @@ VALUES ('2018-05-15', 'Tartiflette'),
 	('2018-05-31', 'Clafoutis aux pommes'),
 	('2018-05-31', 'Compote de cerises');
 
-INSERT INTO ef_client(cl_name, cl_first_name, cl_email, cl_contact)
-VALUES ('Bards', 'Lenny', 'lenny.bards@gmail.com');
+-- Coordonnées
+INSERT INTO ef_contact(con_name, con_surname, con_phone_number, con_email, con_street, con_zip_code, con_city, con_complement)
+VALUES
+	('Gilbert', 'Muda', '01.13.10.04.87', 'gilbert.muda@gmail.com', '59, rue Marguerite', "94300", 'VINCENNES'),
+	('Hector', 'Gnol', '04.15.48.91.63', 'hector.gnol@gmail.com'  '51, rue Gustave Eiffel', "69140", 'RILLIEUX-LA-PAPE'),
+	('Jim', 'Agine', '03.83.85.75.91', 'jim.agine@gmail.com', '80, place Maurice-Charretier', "08000", 'CHARLEVILLE-MÉZIÈRES'),
+	('Amélie', 'Ksir', '04.62.70.99.71', 'amelie.ksir@gmail.com', '71, rue Reine Elisabeth', "06500", 'MENTON'),
+	('Eva', 'Kué', '04.19.34.91.56', 'eva.kue@gmail.com', '42, rue des Soeurs', "13600", 'LA CIOTAT'),
+	('Alex', 'Ception', '03.37.17.87.86', 'alex.ception@gmail.com', '32, rue Pierre Motte', "88100", 'SAINT-DIÉ'),
+	('Lenny', 'Bards', '04.87.96.32.43', 'lenny.bards@gmail.com', '30, rue Grande Fusterie', "69006", 'LYON');
+
+-- Clients
+INSERT INTO ef_client(cl_contact_id)
+VALUES
+
+
+-- Employés
+INSERT INTO ef_employee(em_name, em_first_name, )
+VALUES
+	
+-- -- Cuisiniers
+-- INSERT INTO ef_cook
+-- VALUES
+
+-- -- Livreurs
+-- INSERT INTO ef_delivery_guy
+-- VALUES
+
+-- -- Commandes
+-- INSERT INTO ef_order
+-- VALUES
+
+-- -- Contenu des commandes
+-- INSERT INTO ef_order_content
+-- VALUES

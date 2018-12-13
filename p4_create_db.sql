@@ -8,7 +8,7 @@ USE oc_projet4_expressfood;
 
 CREATE TABLE ef_plate(
 	pl_name VARCHAR(100),
-	pl_type CHAR(1) NOT NULL,
+	pl_type VARCHAR(20) NOT NULL,
 	PRIMARY KEY (pl_name)
 )
 ENGINE=InnoDB;
@@ -19,22 +19,39 @@ CREATE TABLE ef_daily_list(
 )
 ENGINE=InnoDB;
 
+CREATE TABLE ef_daily_list_content(
+	dlc_list_date DATE,
+	dlc_plate_name VARCHAR(100),
+	PRIMARY KEY (dlc_list_date, dlc_plate_name),
+	CONSTRAINT fk_dlc_list_date_dl_date
+		FOREIGN KEY (dlc_list_date)
+			REFERENCES ef_daily_list(dl_date)
+				ON DELETE CASCADE
+				ON UPDATE CASCADE,
+	CONSTRAINT fk_dlc_plate_name_pl_name
+		FOREIGN KEY (dlc_plate_name)
+			REFERENCES ef_plate(pl_name)
+				ON DELETE CASCADE
+				ON UPDATE CASCADE
+)
+ENGINE=InnoDB;
+
 CREATE TABLE ef_contact(
 	con_id INT UNSIGNED AUTO_INCREMENT,
-	con_number VARCHAR(10),
-	con_street VARCHAR(100),
-	con_city VARCHAR(100),
-	con_zip_code NUMERIC(5),
+	con_name VARCHAR(100) NOT NULL,
+	con_surname VARCHAR(100) NOT NULL,
+	con_phone_number VARCHAR(20) NOT NULL,
+	con_email VARCHAR(50) NOT NULL,
+	con_street VARCHAR(100) NOT NULL,
+	con_zip_code NUMERIC(5) NOT NULL,
+	con_city VARCHAR(100) NOT NULL,
 	con_complement VARCHAR(100),
-	con_phone_number VARCHAR(20),
 	PRIMARY KEY (con_id)
 )
 ENGINE=InnoDB;
 
 CREATE TABLE ef_employee(
 	em_id INT UNSIGNED AUTO_INCREMENT,
-	em_name VARCHAR(100) NOT NULL,
-	em_first_name VARCHAR(100) NOT NULL,
 	em_contact_id INT UNSIGNED,
 	PRIMARY KEY (em_id),
 	CONSTRAINT fk_em_contact_id_con_id
@@ -72,9 +89,6 @@ ENGINE=InnoDB;
 
 CREATE TABLE ef_client(
 	cl_id INT UNSIGNED AUTO_INCREMENT,
-	cl_name VARCHAR(100) NOT NULL,
-	cl_first_name VARCHAR(100) NOT NULL,
-	cl_email VARCHAR(100) NOT NULL,
 	cl_contact_id INT UNSIGNED,
 	PRIMARY KEY (cl_id),
 	CONSTRAINT fk_cl_contact_id_con_id
@@ -114,22 +128,5 @@ CREATE TABLE ef_order_content(
 			REFERENCES ef_order(o_id)
 			ON DELETE CASCADE
 			ON UPDATE CASCADE
-)
-ENGINE=InnoDB;
-
-CREATE TABLE ef_daily_list_content(
-	dlc_list_date DATE,
-	dlc_plate_name VARCHAR(100),
-	PRIMARY KEY (dlc_list_date, dlc_plate_name),
-	CONSTRAINT fk_dlc_list_date_dl_date
-		FOREIGN KEY (dlc_list_date)
-			REFERENCES ef_daily_list(dl_date)
-				ON DELETE CASCADE
-				ON UPDATE CASCADE,
-	CONSTRAINT fk_dlc_plate_name_pl_name
-		FOREIGN KEY (dlc_plate_name)
-			REFERENCES ef_plate(pl_name)
-				ON DELETE CASCADE
-				ON UPDATE CASCADE
 )
 ENGINE=InnoDB;
