@@ -160,37 +160,58 @@ VALUES
 	('2018-05-31', 'Compote de cerises');
 
 -- Coordonnées
-INSERT INTO ef_contact(con_name, con_surname, con_phone_number, con_email, con_street, con_zip_code, con_city, con_complement)
+INSERT INTO ef_contact(con_name, con_surname, con_phone_number, con_email, con_street, con_zip_code, con_city)
 VALUES
-	('Gilbert', 'Muda', '01.13.10.04.87', 'gilbert.muda@gmail.com', '59, rue Marguerite', "94300", 'VINCENNES'),
-	('Hector', 'Gnol', '04.15.48.91.63', 'hector.gnol@gmail.com'  '51, rue Gustave Eiffel', "69140", 'RILLIEUX-LA-PAPE'),
-	('Jim', 'Agine', '03.83.85.75.91', 'jim.agine@gmail.com', '80, place Maurice-Charretier', "08000", 'CHARLEVILLE-MÉZIÈRES'),
-	('Amélie', 'Ksir', '04.62.70.99.71', 'amelie.ksir@gmail.com', '71, rue Reine Elisabeth', "06500", 'MENTON'),
-	('Eva', 'Kué', '04.19.34.91.56', 'eva.kue@gmail.com', '42, rue des Soeurs', "13600", 'LA CIOTAT'),
-	('Alex', 'Ception', '03.37.17.87.86', 'alex.ception@gmail.com', '32, rue Pierre Motte', "88100", 'SAINT-DIÉ'),
-	('Lenny', 'Bards', '04.87.96.32.43', 'lenny.bards@gmail.com', '30, rue Grande Fusterie', "69006", 'LYON');
+	('Gilbert', 'Muda', '01.13.10.04.87', 'gilbert.muda@gmail.com', '59, rue Marguerite', '94300', 'VINCENNES'),
+	('Hector', 'Gnol', '04.15.48.91.63', 'hector.gnol@gmail.com',  '51, rue Gustave Eiffel', '69140', 'RILLIEUX-LA-PAPE'),
+	('Jim', 'Agine', '03.83.85.75.91', 'jim.agine@gmail.com', '80, place Maurice-Charretier', '08000', 'CHARLEVILLE-MÉZIÈRES'),
+	('Amélie', 'Ksir', '04.62.70.99.71', 'amelie.ksir@gmail.com', '71, rue Reine Elisabeth', '06500', 'MENTON'),
+	('Eva', 'Kué', '04.19.34.91.56', 'eva.kue@gmail.com', '42, rue des Soeurs', '13600', 'LA CIOTAT'),
+	('Alex', 'Ception', '03.37.17.87.86', 'alex.ception@gmail.com', '32, rue Pierre Motte', '88100', 'SAINT-DIÉ'),
+	('Lenny', 'Bards', '04.87.96.32.43', 'lenny.bards@gmail.com', '30, rue Grande Fusterie', '69006', 'LYON');
 
 -- Clients
 INSERT INTO ef_client(cl_contact_id)
 VALUES
-
+	(1),
+	(2),
+	(3),
+	(4);
 
 -- Employés
-INSERT INTO ef_employee(em_name, em_first_name, )
+INSERT INTO ef_employee(em_contact_id)
 VALUES
+	(5),
+	(6),
+	(7);
 	
--- -- Cuisiniers
--- INSERT INTO ef_cook
--- VALUES
+-- Cuisiniers
+INSERT INTO ef_cook(co_employee_id)
+VALUES
+	(1);
 
--- -- Livreurs
--- INSERT INTO ef_delivery_guy
--- VALUES
+-- Livreurs
+INSERT INTO ef_delivery_guy(dg_employee_id, dg_status, dg_position_latitude, dg_position_longitude)
+VALUES
+	(2, 'attente', 45.7669, 4.7896),
+	(3, 'en livraison', 45.7863, 4.8253);
 
--- -- Commandes
--- INSERT INTO ef_order
--- VALUES
+-- Commandes
+INSERT INTO ef_order(o_date, o_status, o_delivery_guy_id)
+VALUES
+	('2018-05-15 12:10:53', 'livrée', 2),
+	('2018-05-15 13:10:53', 'livrée', 2),
+	('2018-05-16 12:30:53', 'livrée', 2),
+	('2018-05-16 12:30:53', 'annulée', NULL),
+	('2018-05-16 12:30:53', 'livrée', 3),
+	('2018-05-17 12:30:53', 'livrée', 2),
+	('2018-05-17 12:30:53', 'livrée', 3),
+	('2018-05-18 12:30:53', 'annulée', NULL),
+	('2018-05-18 12:30:53', 'livrée', 3),
+	('2018-05-18 17:26:00', 'livrée', 2);
 
--- -- Contenu des commandes
--- INSERT INTO ef_order_content
--- VALUES
+-- Contenu des commandes
+INSERT INTO ef_order_content(oc_plate_name, oc_order_id, oc_quantity)
+VALUES
+	('Tartiflette', 1, 2),
+	('Crèpes au nutella', 1, 2);
