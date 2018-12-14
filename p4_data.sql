@@ -12,6 +12,9 @@ DELETE FROM ef_order;
 DELETE FROM ef_order_content;
 DELETE FROM ef_daily_list_content;
 
+-- On passe en utf-8
+SET NAMES utf8;
+
 -- On insère les données
 
 -- Plats
