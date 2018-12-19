@@ -90,7 +90,6 @@ CREATE TABLE ef_address(
 			REFERENCES ef_user(u_email)
 			ON UPDATE CASCADE
 			ON DELETE CASCADE
-
 )
 ENGINE=InnoDB;
 
