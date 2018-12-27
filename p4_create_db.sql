@@ -12,6 +12,7 @@ CREATE TABLE ef_plate(
 	-- attributes
 	pl_type VARCHAR(20) NOT NULL,
 	pl_available BOOLEAN NOT NULL,
+	pl_price NUMERIC(5, 2) NOT NULL,
 
 	PRIMARY KEY (pl_name)
 )
@@ -49,6 +50,8 @@ CREATE TABLE ef_user(
 	u_email VARCHAR(50),
 	-- attributes
 	u_password VARCHAR(100) NOT NULL,
+	a_name VARCHAR(100) NOT NULL,
+	a_surname VARCHAR(100) NOT NULL,
 
 	PRIMARY KEY (u_email)
 )
@@ -77,8 +80,6 @@ CREATE TABLE ef_address(
 	-- FK
 	a_u_email VARCHAR(50),
 	-- attributes
-	a_name VARCHAR(100) NOT NULL,
-	a_surname VARCHAR(100) NOT NULL,
 	a_street VARCHAR(100) NOT NULL,
 	a_zip_code NUMERIC(5) NOT NULL,
 	a_city VARCHAR(100) NOT NULL,
