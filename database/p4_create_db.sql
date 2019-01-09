@@ -6,79 +6,40 @@ CREATE DATABASE oc_projet4_expressfood CHARACTER SET "utf8";
 
 USE oc_projet4_expressfood;
 
-CREATE TABLE ef_plate(
-	-- PK
-	pl_name VARCHAR(100),
-	-- attributes
-	pl_type VARCHAR(20) NOT NULL,
-	pl_available BOOLEAN NOT NULL,
-	pl_price NUMERIC(5, 2) NOT NULL,
-
-	PRIMARY KEY (pl_name)
-)
-ENGINE=InnoDB;
-
-CREATE TABLE ef_daily_list(
-	-- PK
-	dl_date DATE,
-
-	PRIMARY KEY (dl_date)
-)
-ENGINE=InnoDB;
-
-CREATE TABLE ef_daily_list_content(
-	-- PFK
-	dlc_list_date DATE,
-	dlc_plate_name VARCHAR(100),
-
-	PRIMARY KEY (dlc_list_date, dlc_plate_name),
-	CONSTRAINT fk_dlc_list_date_dl_date
-		FOREIGN KEY (dlc_list_date)
-			REFERENCES ef_daily_list(dl_date)
-				ON DELETE CASCADE
-				ON UPDATE CASCADE,
-	CONSTRAINT fk_dlc_plate_name_pl_name
-		FOREIGN KEY (dlc_plate_name)
-			REFERENCES ef_plate(pl_name)
-				ON DELETE CASCADE
-				ON UPDATE CASCADE
-)
-ENGINE=InnoDB;
-
 CREATE TABLE ef_user(
 	-- PK
-	u_email VARCHAR(50),
+	u_email VARCHAR(100),
 	-- attributes
 	u_password VARCHAR(100) NOT NULL,
-	a_name VARCHAR(100) NOT NULL,
-	a_surname VARCHAR(100) NOT NULL,
+	u_name VARCHAR(100) NOT NULL,
+	u_surname VARCHAR(100) NOT NULL,
 
 	PRIMARY KEY (u_email)
 )
-ENGINE=InnoDB;
+ENGINE = InnoDB;
 
 CREATE TABLE ef_telephone(
 	-- PK
 	tel_id INT UNSIGNED AUTO_INCREMENT,
 	-- FK
-	tel_u_email VARCHAR(50),
+	tel_user_email VARCHAR(100),
 	-- attributes
 	tel_number VARCHAR(20) NOT NULL,
 
 	PRIMARY KEY (tel_id),
-	CONSTRAINT fk_tel_u_email_u_email
-		FOREIGN KEY (tel_u_email)
+	CONSTRAINT fk_tel_user_email_u_email
+		FOREIGN KEY (tel_user_email)
 			REFERENCES ef_user(u_email)
 			ON UPDATE CASCADE
 			ON DELETE CASCADE
 )
-ENGINE=InnoDB;
+ENGINE = InnoDB;
 
 CREATE TABLE ef_address(
 	-- PK
 	a_id INT UNSIGNED AUTO_INCREMENT,
 	-- FK
-	a_u_email VARCHAR(50),
+	a_user_email VARCHAR(100),
 	-- attributes
 	a_street VARCHAR(100) NOT NULL,
 	a_zip_code NUMERIC(5) NOT NULL,
@@ -86,28 +47,28 @@ CREATE TABLE ef_address(
 	a_complement VARCHAR(100),
 
 	PRIMARY KEY (a_id),
-	CONSTRAINT fk_a_u_email_u_email
-		FOREIGN KEY (a_u_email)
+	CONSTRAINT fk_a_user_email_u_email
+		FOREIGN KEY (a_user_email)
 			REFERENCES ef_user(u_email)
 			ON UPDATE CASCADE
 			ON DELETE CASCADE
 )
-ENGINE=InnoDB;
+ENGINE = InnoDB;
 
 CREATE TABLE ef_employee(
 	-- PK
 	em_id INT UNSIGNED AUTO_INCREMENT,
 	-- FK
-	em_u_email VARCHAR(50),
+	em_user_email VARCHAR(100),
 
 	PRIMARY KEY (em_id),
-	CONSTRAINT fk_em_u_email_u_email
-		FOREIGN KEY (em_u_email)
+	CONSTRAINT fk_em_user_email_u_email
+		FOREIGN KEY (em_user_email)
 			REFERENCES ef_user(u_email)
 			ON DELETE SET NULL
 			ON UPDATE CASCADE
 )
-ENGINE=InnoDB;
+ENGINE = InnoDB;
 
 CREATE TABLE ef_cook(
 	-- PFK
@@ -120,13 +81,13 @@ CREATE TABLE ef_cook(
 			ON DELETE CASCADE
 			ON UPDATE CASCADE
 )
-ENGINE=InnoDB;
+ENGINE = InnoDB;
 
 CREATE TABLE ef_delivery_guy(
 	-- PFK
 	dg_employee_id INT UNSIGNED,
 	-- attributes
-	dg_status VARCHAR(50),
+	dg_status VARCHAR(100) NOT NULL,
 	dg_position_latitude DECIMAL(6, 4),
 	dg_position_longitude DECIMAL(5, 4),
 
@@ -137,40 +98,58 @@ CREATE TABLE ef_delivery_guy(
 			ON DELETE CASCADE
 			ON UPDATE CASCADE
 )
-ENGINE=InnoDB;
+ENGINE = InnoDB;
 
 CREATE TABLE ef_client(
 	-- PK
 	cl_id INT UNSIGNED AUTO_INCREMENT,
 	-- FK
-	cl_u_email VARCHAR(50),
+	cl_user_email VARCHAR(100),
 
 	PRIMARY KEY (cl_id),
-	CONSTRAINT fk_cl_u_email_u_email
-		FOREIGN KEY (cl_u_email)
+	CONSTRAINT fk_cl_user_email_u_email
+		FOREIGN KEY (cl_user_email)
 			REFERENCES ef_user(u_email)
 			ON DELETE SET NULL
 			ON UPDATE CASCADE
 )
-ENGINE=InnoDB;
+ENGINE = InnoDB;
+
+CREATE TABLE ef_plate(
+	-- PK
+	pl_name VARCHAR(100),
+	-- attributes
+	pl_type VARCHAR(20) NOT NULL,
+	pl_available BOOLEAN NOT NULL,
+	pl_price NUMERIC(5, 2) NOT NULL,
+
+	PRIMARY KEY (pl_name)
+)
+ENGINE = InnoDB;
 
 CREATE TABLE ef_order(
 	-- PK
 	o_id INT UNSIGNED AUTO_INCREMENT,
 	-- FK
+	o_client_id INT UNSIGNED,
 	o_delivery_guy_id INT UNSIGNED,
 	-- attributes
-	o_date DATETIME,
-	o_status VARCHAR(50),
+	o_date DATETIME NOT NULL,
+	o_status VARCHAR(100) NOT NULL,
 
 	PRIMARY KEY (o_id),
 	CONSTRAINT fk_o_delivery_guy_id_dg_employee_id
 		FOREIGN KEY (o_delivery_guy_id)
 			REFERENCES ef_delivery_guy(dg_employee_id)
 			ON DELETE SET NULL
+			ON UPDATE CASCADE,
+	CONSTRAINT fk_o_client_id_cl_id
+		FOREIGN KEY (o_client_id)
+			REFERENCES ef_client(cl_id)
+			ON DELETE SET NULL
 			ON UPDATE CASCADE
 )
-ENGINE=InnoDB;
+ENGINE = InnoDB;
 
 CREATE TABLE ef_order_content(
 	-- PFK
@@ -191,4 +170,39 @@ CREATE TABLE ef_order_content(
 			ON DELETE CASCADE
 			ON UPDATE CASCADE
 )
-ENGINE=InnoDB;
+ENGINE = InnoDB;
+
+
+CREATE TABLE ef_daily_list(
+	-- PK
+	dl_date DATE,
+	-- FK
+	dl_cook_id INT UNSIGNED,
+
+	PRIMARY KEY (dl_date),
+	CONSTRAINT fk_dl_cook_id_co_employee_id
+		FOREIGN KEY (dl_cook_id)
+			REFERENCES ef_cook(co_employee_id)
+			ON DELETE SET NULL
+			ON UPDATE CASCADE
+)
+ENGINE = InnoDB;
+
+CREATE TABLE ef_daily_list_content(
+	-- PFK
+	dlc_list_date DATE,
+	dlc_plate_name VARCHAR(100),
+
+	PRIMARY KEY (dlc_list_date, dlc_plate_name),
+	CONSTRAINT fk_dlc_list_date_dl_date
+		FOREIGN KEY (dlc_list_date)
+			REFERENCES ef_daily_list(dl_date)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE,
+	CONSTRAINT fk_dlc_plate_name_pl_name
+		FOREIGN KEY (dlc_plate_name)
+			REFERENCES ef_plate(pl_name)
+			ON DELETE SET NULL
+			ON UPDATE CASCADE
+)
+ENGINE = InnoDB;
